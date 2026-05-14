@@ -2,9 +2,11 @@
   "name": "email-verifier",
   "version": "1.0.0",
   "description": "Email Verifier",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,16 @@
   "bugs": {
     "url": "https://github.com/T-Zec/email-verifier/issues"
   },
-  "homepage": "https://github.com/T-Zec/email-verifier#readme"
+  "homepage": "https://github.com/T-Zec/email-verifier#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "fast-levenshtein": "^3.0.0",
+    "smtp-client": "^0.4.0"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2",
+    "nodemon": "^3.1.14",
+    "supertest": "^7.2.2"
+  }
 }
