@@ -31,4 +31,22 @@ describe("Email Syntax Validation", () => {
 
         expect(result.valid).toBe(false);
     });
+
+    test("Null email should fail", () => {
+        const result = validateEmailSyntax(null);
+
+        expect(result.valid).toBe(false);
+    });
+
+    test("Undefined email should fail", () => {
+        const result = validateEmailSyntax(undefined);
+
+        expect(result.valid).toBe(false);
+    });
+
+    test("Email with spaces should fail", () => {
+        const result = validateEmailSyntax("test @gmail.com");
+
+        expect(result.valid).toBe(false);
+    });
 });

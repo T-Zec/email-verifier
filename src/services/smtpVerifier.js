@@ -1,3 +1,4 @@
+require("dotenv").config();
 const { SMTPClient } = require("smtp-client");
 
 async function verifyMailbox(mxRecord, email) {
@@ -5,7 +6,7 @@ async function verifyMailbox(mxRecord, email) {
     const client = new SMTPClient({
         host: mxRecord,
         port: 25,
-        timeout: 10000
+        timeout: process.env.SMTP_TIMEOUT || 5000
     });
 
     try {
