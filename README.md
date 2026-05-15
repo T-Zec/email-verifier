@@ -29,7 +29,7 @@ A Node.js email verification service that validates email syntax, performs DNS M
 Clone the repository:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/T-Zec/email-verifier
 cd email-verifier
 ```
 
@@ -133,4 +133,9 @@ Some SMTP providers may block mailbox verification attempts or return temporary 
 Sagar Singh
 
 ## GitHub Repo
+
 https://github.com/T-Zec/email-verifier
+
+## Render Deployment URL
+
+https://email-verifier-2c5a.onrender.com

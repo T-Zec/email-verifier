@@ -8,6 +8,7 @@ app.use(express.json());
 // Basic route for testing
 app.get("/", (req, res) => {
     res.json({
+        success: true,
         message: "Email Verification API Running"
     });
 });
@@ -20,6 +21,7 @@ app.post("/verify", async (req, res) => {
         
         if (!email) {
             return res.status(400).json({
+                success: false,
                 error: "Email is required"
             });
         }
@@ -31,6 +33,7 @@ app.post("/verify", async (req, res) => {
     } catch (error) {
 
         res.status(500).json({
+            success: false,
             error: error.message
 
         });
