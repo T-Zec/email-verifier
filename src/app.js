@@ -2,6 +2,7 @@ const express = require('express');
 const validateEmailSyntax = require("./utils/emailValidator");
 const getMXRecords = require("./services/mxLookup");
 const verifyMailbox = require("./services/smtpVerifier");
+const getDidYouMean = require("./services/typoDetection");
 
 const app = express();
 
@@ -56,6 +57,23 @@ app.post("/smtp-check", async (req, res) => {
         const result = await verifyMailbox(mxRecord, email);
 
         res.json(result);
+    } catch (error) {
+        res.status(500).json({
+            error: error.message
+        });
+    }
+});
+
+app.post("/did-you-mean", (req, res) => {
+
+    try {
+        const { email } = req.body;
+        const suggestion = getDidYouMean(email);
+
+        res.json({
+            original: email,
+            didyoumean: suggestion
+        });
     } catch (error) {
         res.status(500).json({
             error: error.message
