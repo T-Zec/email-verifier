@@ -1,6 +1,6 @@
 # Email Verification Module
 
-A Node.js email verification module built using SMTP protocol.
+A Node.js email verification service that validates email syntax, performs DNS MX lookup, checks mailbox existence using SMTP, and detects common email typos.
 
 ## Features
 
@@ -8,8 +8,9 @@ A Node.js email verification module built using SMTP protocol.
 - DNS MX record lookup
 - SMTP mailbox verification
 - Typo detection using Levenshtein distance
-- Structured verification responses
-- Jest unit testing
+- Structured API responses
+- Comprehensive Jest test coverage
+- Error handling and timeout support
 
 ---
 
@@ -17,20 +18,35 @@ A Node.js email verification module built using SMTP protocol.
 
 - Node.js
 - Express.js
-- smtp-client
+- SMTP Client
+- DNS Promises API
 - Jest
 
 ---
 
 ## Installation
 
+Clone the repository:
+
+```bash
+git clone <your-repo-url>
+cd email-verifier
+```
+
+Install dependencies:
+
 ```bash
 npm install
 ```
 
----
+Create `.env` file:
 
-## Run Development Server
+```env
+PORT=3000
+SMTP_TIMEOUT=5000
+```
+
+Start development server:
 
 ```bash
 npm run dev
@@ -38,19 +54,15 @@ npm run dev
 
 ---
 
-## Run Tests
-
-```bash
-npm test
-```
-
----
-
 ## API Endpoint
 
-### POST /verify
+### Verify Email
 
-Request:
+```http
+POST /verify
+```
+
+### Request Body
 
 ```json
 {
@@ -58,7 +70,7 @@ Request:
 }
 ```
 
-Response:
+### Example Response
 
 ```json
 {
@@ -67,10 +79,13 @@ Response:
   "resultcode": 1,
   "subresult": "mailbox_exists",
   "domain": "gmail.com",
-  "mxRecords": [],
-  "executiontime": 1.2,
+  "mxRecords": [
+    "gmail-smtp-in.l.google.com"
+  ],
+  "didyoumean": null,
+  "executiontime": 1.24,
   "error": null,
-  "timestamp": "2026-05-15T12:00:00.000Z"
+  "timestamp": "2026-05-15T10:30:00.000Z"
 }
 ```
 
@@ -78,11 +93,44 @@ Response:
 
 ## Test Coverage
 
-Includes tests for:
-- Syntax validation
-- Typo detection
-- MX lookup
-- SMTP verification
-- Edge cases
+Run tests:
 
-Minimum 15+ test cases implemented.
+```bash
+npm test
+```
+
+Includes:
+- Syntax validation tests
+- MX lookup tests
+- SMTP verification tests
+- Typo detection tests
+- Integration tests
+
+---
+
+## Project Structure
+
+```txt
+src/
+├── services/
+├── utils/
+├── app.js
+└── server.js
+
+tests/
+```
+
+---
+
+## Notes
+
+Some SMTP providers may block mailbox verification attempts or return temporary responses due to anti-spam policies. In such cases, the API returns an `unknown` result with appropriate error details.
+
+---
+
+## Author
+
+Sagar Singh
+
+## GitHub Repo
+https://github.com/T-Zec/email-verifier
